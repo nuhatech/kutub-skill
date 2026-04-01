@@ -63,12 +63,41 @@ The skill will automatically search Kutub.io's database and provide sourced answ
 
 ## Enhanced Search (Optional)
 
-By default, the skill uses **free full-text search**. For better results with **hybrid search** (vector embeddings + semantic matching + reranking), you can add a Kutub.io API key:
+By default, the skill uses **free full-text search**. For better results with **hybrid search** (vector embeddings + semantic matching + reranking), you can add a Kutub.io API key.
+
+### Step 1: Get your API key
 
 1. Create an account at [kutub.io](https://kutub.io)
-2. Subscribe to a paid plan
-3. Generate an API key at [kutub.io/profile (API Keys tab)](https://kutub.io/profile (API Keys tab))
-4. Provide the key to your AI assistant when prompted
+2. Subscribe to a paid plan (starting at $2/month)
+3. Go to your profile > **API Keys** tab
+4. Click **Create Key** and copy it
+
+### Step 2: Give the key to Claude
+
+There are several ways to persist your API key so you don't have to paste it every conversation:
+
+**Option A: Paste in chat (simplest)**
+Just tell Claude your key in any conversation: *"My Kutub.io API key is kutub_sk_..."*. Claude will use it for the rest of that conversation.
+
+**Option B: Custom instructions (persists across all conversations)**
+Go to **Settings > Profile > Custom instructions** and add:
+```
+My Kutub.io API key: kutub_sk_your_key_here
+```
+Claude will automatically use the key in every new conversation.
+
+**Option C: Projects (persists within a project)**
+Create a Claude Project, and in the **Project instructions** add:
+```
+My Kutub.io API key: kutub_sk_your_key_here
+```
+The key will be available in all conversations within that project.
+
+**Option D: Claude Code (local config)**
+Add to your environment or project `.env`:
+```
+KUTUB_API_KEY=kutub_sk_your_key_here
+```
 
 ## What's Included
 
