@@ -1,3 +1,24 @@
+---
+name: kutub
+description: >
+  Search 9,000+ classical Arabic Islamic heritage books from scholars like
+  Ibn Taymiyya, Al-Nawawi, Ibn Kathir, Al-Ghazali, and thousands more.
+  Use whenever the user asks about Islamic theology, jurisprudence, fiqh,
+  aqeedah, Quranic verses, tafsir, hadith, scholarly opinions, fatwas,
+  Islamic history, halal/haram rulings, prayer, fasting, zakat, hajj,
+  comparisons between scholars or madhahib, or any Islamic concept.
+license: MIT
+metadata:
+  author: nuhatech
+  version: "1.0.0"
+  website: https://kutub.io
+  source: https://github.com/nuhatech/kutub-skill
+runtime:
+  network:
+    allowed_domains:
+      - kutub.io
+---
+
 # Kutub.io — Islamic Books Search
 
 ## Purpose

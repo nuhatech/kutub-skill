@@ -16,31 +16,31 @@ Find passages from scholars like Ibn Taymiyya, Al-Nawawi, Ibn Kathir, Al-Ghazali
 
 ```bash
 # Clone and copy the skill directory
-git clone https://github.com/kutub-io/kutub-skill.git
-cp -r kutub-skill/kutub ~/.claude/skills/kutub
+git clone https://github.com/nuhatech/kutub-skill.git
+cp -r kutub-skill ~/.claude/skills/kutub
 ```
 
 Or install with npx:
 ```bash
-npx openskills install kutub-io/kutub-skill
+npx openskills install nuhatech/kutub-skill
 ```
 
 ### GitHub Copilot
 
 ```bash
-cp -r kutub-skill/kutub .github/skills/kutub
+cp -r kutub-skill .github/skills/kutub
 ```
 
 ### Cursor
 
 ```bash
-cp -r kutub-skill/kutub .cursor/skills/kutub
+cp -r kutub-skill .cursor/skills/kutub
 ```
 
 ### Gemini CLI
 
 ```bash
-cp -r kutub-skill/kutub ~/.gemini/skills/kutub
+cp -r kutub-skill ~/.gemini/skills/kutub
 ```
 
 ## Usage
@@ -60,7 +60,7 @@ By default, the skill uses **free full-text search**. For better results with **
 
 1. Create an account at [kutub.io](https://kutub.io)
 2. Subscribe to a paid plan
-3. Generate an API key at [kutub.io/settings/api-keys](https://kutub.io/settings/api-keys)
+3. Generate an API key at [kutub.io/profile (API Keys tab)](https://kutub.io/profile (API Keys tab))
 4. Provide the key to your AI assistant when prompted
 
 ## What's Included
