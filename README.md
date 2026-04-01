@@ -9,8 +9,15 @@ Find passages from scholars like Ibn Taymiyya, Al-Nawawi, Ibn Kathir, Al-Ghazali
 ### Claude.ai / Claude Desktop
 
 1. Download this repository as a ZIP
-2. Go to **Settings > Customize > Skills**
-3. Upload the ZIP file
+2. In the sidebar, click **Customize** (below the search input)
+3. Click **Create new skill** then **Upload a skill**
+4. Upload the ZIP file and toggle the skill on
+5. **Enable network access** — the skill needs to reach `kutub.io`:
+   - Go to **Settings > Features** (or **Settings > Capabilities**)
+   - Under **Network access**, select **"Package managers + specific domains"**
+   - Add `kutub.io` to the allowed domains list
+   - *Alternatively, select "All domains" for unrestricted access*
+6. **Start a new conversation** for the settings to take effect
 
 ### Claude Code
 
