@@ -10,7 +10,7 @@ description: >
 license: MIT
 metadata:
   author: nuhatech
-  version: "1.1.0"
+  version: "1.1.1"
   website: https://kutub.io
   source: https://github.com/nuhatech/kutub-skill
 runtime:
@@ -189,6 +189,39 @@ curl -s 'https://kutub.io/api/v1/llm/search/fts?q=صفات+الله&include_hete
 ```
 
 Then prefix the answer with the disclosure preamble and tag the Ash'ari citations.
+
+## Tip: Arabic encoding in API requests
+
+When you run plain `curl` in an embedded terminal, the shell's locale may corrupt the UTF-8 Arabic bytes before they reach the URL. Symptoms: empty results, or the response echoes a `query` field that doesn't match what you sent.
+
+Two safer alternatives — both produce **the same** API request, pick whichever is most reliable in your runtime:
+
+**1. Let curl URL-encode for you** (curl-native, avoids the shell entirely):
+
+```bash
+curl -sG 'https://kutub.io/api/v1/llm/search/fts' \
+  --data-urlencode 'q=زكاة الذهب' \
+  --data-urlencode 'limit=10'
+```
+
+**2. Python (most reliable, especially in sandboxed terminals):**
+
+```python
+import requests
+
+r = requests.get(
+    "https://kutub.io/api/v1/llm/search/fts",
+    params={"q": "زكاة الذهب", "limit": 10},
+    # Add an Authorization header for /search/rag:
+    # headers={"Authorization": "Bearer <API_KEY>"},
+)
+print(r.json())
+```
+
+Prefer the Python form when:
+- the shell's locale is suspect (Windows `cmd`, mismatched `LANG`, embedded sandboxes)
+- you're chaining multiple calls (catalog lookup → search → page fetch)
+- the query is long or contains punctuation / parentheses / vocalisation marks
 
 ## Important Rules
 
