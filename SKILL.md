@@ -10,7 +10,7 @@ description: >
 license: MIT
 metadata:
   author: nuhatech
-  version: "1.0.0"
+  version: "1.1.0"
   website: https://kutub.io
   source: https://github.com/nuhatech/kutub-skill
 runtime:
@@ -149,6 +149,47 @@ Example:
 Source: [مجموع الفتاوى — ابن تيمية, p. 42](https://kutub.io/book/456/42)
 ```
 
+## Opt-in sources (heterodox)
+
+Kutub.io's **default mainstream tier** is aligned with **salaf aqeedah**. Books outside that — Ash'ari and Maturidi kalam, Mu'tazila, Jahmiyya, Shia (any branch), Ibadi, Khawarij, Sufi positions outside salaf, philosophical falsafa — are flagged `tier=heterodox` and **excluded from search results by default**.
+
+You can opt in per request by adding `&include_heterodox=true` to `/llm/search/fts`, `/llm/search/rag`, and `/llm/catalog/books`. Every result also carries a `tier` field (`mainstream` | `heterodox`) so you can label citations.
+
+### When to opt in
+
+Set `include_heterodox=true` **only** when the user explicitly:
+- Names a school outside salaf aqeedah — *"what do Mu'tazila say about…"*, *"Ash'ari position on the divine attributes"*, *"Shia view on…"*, *"Ibadi opinion on…"*, *"Maturidi vs. Athari on…"*
+- Asks a comparative aqeedah question that requires non-salaf views — *"compare Athari and Ash'ari on the divine attributes"*, *"Mu'tazili view of free will"*
+- Explicitly asks for non-salaf, dissenting, or kalam-style positions
+
+### When NOT to opt in
+
+- Standard practice questions: prayer, fasting, zakat, hajj, halal/haram, fatwa for daily life.
+- Tafsir / hadith / fiqh queries that don't specifically ask for kalam or non-salaf views.
+- Ambiguous questions where the user hasn't named a non-salaf school. **If in doubt, do not opt in.**
+
+### Mandatory disclosure when opting in
+
+When you set `include_heterodox=true`, you **must**:
+
+1. **Announce it before the answer** — a brief preamble such as:
+   > *"This question touches on positions outside the salaf aqeedah. I'll include opt-in sources alongside mainstream ones, and label them clearly."*
+
+2. **Label every heterodox citation in the rendered answer** — inspect each result's `tier` field and tag heterodox ones explicitly:
+   > [1] *Maqalat al-Islamiyyin* — Al-Ash'ari, p.42 ⚠ **opt-in source**
+
+The user must always see *both* that you chose to include opt-in sources *and* which specific citations are heterodox. **Never silently mix tiers.**
+
+### Example
+
+**User:** *"Compare Athari and Ash'ari views on God's attributes"*
+
+```bash
+curl -s 'https://kutub.io/api/v1/llm/search/fts?q=صفات+الله&include_heterodox=true&limit=20'
+```
+
+Then prefix the answer with the disclosure preamble and tag the Ash'ari citations.
+
 ## Important Rules
 
 1. **Always search in Arabic** — translate the user's query before searching
@@ -159,6 +200,7 @@ Source: [مجموع الفتاوى — ابن تيمية, p. 42](https://kutub.i
 6. **When results are insufficient**, tell the user and suggest they browse https://kutub.io directly
 7. **For complex research**, make multiple search calls with different queries to cover the topic thoroughly
 8. **Respect the Arabic text** — when quoting, include the original Arabic alongside the translation
+9. **Default to `include_heterodox=false`** — only opt in when the user explicitly asks for non-salaf views, and disclose both the inclusion and per-citation tier
 
 ## Example Interaction
 
