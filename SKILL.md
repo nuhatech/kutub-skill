@@ -10,7 +10,7 @@ description: >
 license: MIT
 metadata:
   author: nuhatech
-  version: "1.1.1"
+  version: "1.1.2"
   website: https://kutub.io
   source: https://github.com/nuhatech/kutub-skill
 runtime:
@@ -121,6 +121,28 @@ curl -s -H 'Authorization: Bearer <API_KEY>' 'https://kutub.io/api/v1/llm/search
   ]
 }
 ```
+
+### Resilience and entitlement errors
+
+Treat network failures and gateway responses as potentially transient. For connection
+errors and HTTP `502`, `503`, `504`, or `520`–`530`, retry the same request up to
+three times with short backoff delays (for example, 2, 5, then 10 seconds). A robust
+curl invocation is:
+
+```bash
+curl -sS --fail-with-body --retry 3 --retry-all-errors \
+  'https://kutub.io/api/v1/llm/search/fts?q=زكاة+الذهب&limit=10'
+```
+
+Do not declare the whole Kutub API down after a single failed request. Only report
+temporary unavailability if every retry fails, and describe the endpoint and final
+HTTP status that were actually observed.
+
+An HTTP `403` from `/llm/search/rag` is an authentication or plan-entitlement
+response, not evidence that the API is unstable. Verify that the API key was sent
+and that the account has an active paid plan. **An active Mahara subscription
+includes enhanced RAG access**; if such an account receives `403`, report an
+entitlement mismatch to Kutub support instead of recommending an upgrade to Talib.
 
 ### Step 4: Fetch Full Page (Optional)
 
